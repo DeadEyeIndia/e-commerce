@@ -1,23 +1,22 @@
 import React, { useEffect } from "react";
 import "./Home.css";
 import { CgMouse } from "react-icons/all";
-import { getProduct } from "../../actions/productAction";
+import { clearErrors, getProduct } from "../../actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 import { useAlert } from "react-alert";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/loader/Loader";
 
 const Home = () => {
   const alert = useAlert();
   const dispatch = useDispatch();
-  const { loading, error, products, productsCount } = useSelector(
-    (state) => state.products
-  );
+  const { loading, error, products } = useSelector((state) => state.products);
 
   useEffect(() => {
     if (error) {
-      return alert.error(error);
+      alert.error(error);
+      dispatch(clearErrors());
     }
     dispatch(getProduct());
   }, [dispatch, error, alert]);
@@ -42,7 +41,9 @@ const Home = () => {
           <h2 className="homeHeading">Featured Products</h2>
           <div className="container" id="container">
             {products &&
-              products.map((product) => <Product product={product} />)}
+              products.map((product) => (
+                <ProductCard product={product} key={product._id} />
+              ))}
           </div>
         </>
       )}
@@ -52,11 +53,4 @@ const Home = () => {
 
 export default Home;
 
-/* const product = {
-  name: "Blue T-shirt",
-  images: [
-    { url: "https://m.media-amazon.com/images/I/61bDoqhvEPL._UL1500_.jpg" },
-  ],
-  price: "₹999",
-  _id: "1",
-}; */
+/* , productsCount */

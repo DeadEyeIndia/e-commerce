@@ -10,7 +10,7 @@ const options = {
   isHalf: true,
 };
 
-const Product = ({ product }) => {
+const ProductCard = ({ product, secret }) => {
   return (
     <Link className="productCard" to={`/product/${product._id}`}>
       <img src={product.images[0].url} alt={product.name} />
@@ -23,4 +23,4 @@ const Product = ({ product }) => {
   );
 };
 
-export default Product;
+export default ProductCard;
