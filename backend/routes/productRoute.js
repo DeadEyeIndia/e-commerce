@@ -23,6 +23,7 @@ router
   .put(isAuthenticatedUser, authorizeRoles("admin"), updateProduct)
   .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
 
+// Single Product Details
 router.route("/product/:id").get(getProductDetails);
 
 // Review route
