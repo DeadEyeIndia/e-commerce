@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
-import "./ProductDetails.css";
 import Carousel from "react-material-ui-carousel";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { useAlert } from "react-alert";
 import ReactStars from "react-rating-stars-component";
+
+import "./ProductDetails.css";
 import { clearErrors, getProductDetails } from "../../actions/productAction";
 import ReviewCard from "./ReviewCard";
 import Loader from "../layout/loader/Loader";
+import MetaData from "../layout/MetaData";
 
-const ProductDetails = () => {
+const ProductDetails = ({ key }) => {
   const dispatch = useDispatch();
   const alert = useAlert();
   const { id } = useParams();
@@ -41,7 +43,8 @@ const ProductDetails = () => {
         <Loader />
       ) : (
         <>
-          <div className="ProductDetails">
+          <MetaData title={`${product.name} | ECOMMERCE`} />
+          <div className="ProductDetails" key={key}>
             <div>
               <Carousel>
                 {product.images &&
